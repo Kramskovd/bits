@@ -3,46 +3,32 @@
 
 int read_n (void);
 int skip_chars(void);
-int reverse_bit(int n);
+int f(int n);
 void print(int n);
-void f(int *n);
 
-int reverse_bit(int n){
-	int i, m;
-
+int f(int n){
+	int i, m, k, down, up;
 	i = 0;
 	m = 0;
+	k = 0;
 
 	while(i < 32){
-		m |= ((n & (1 << i)) ? 1 : 0) << (31 - i);
+
+		if(i%8 == 0){
+			k++;
+			up = k*8-1;
+			down = (k-1)*8;
+		}
+		
+		m |= ((n & (1 << (down + i%8))) ? 1 : 0) << (up - i%8 );
 		i++;
+
 	}
 	
 	return m;
 
 }
-void f(int *n){
-	int i, k;
 
-	i = 0;
-
-	while(i < 16){
-		k = *n & (1 << i) ? 1 : 0;
-		if(k != (*n & (1 << (31 - i)) ? 1 : 0))
-		{
-			if(k == 0){
-				*n ^= 1 << (31 - i);
-				*n |= 1 << i; 
-			}else{
-				*n |= 1 << (31 - i);
-				*n ^= 1 << i; 
-			}
-
-		}
-		i++;
-	}
-
-}
 
 void print(int n){
 	int i;
