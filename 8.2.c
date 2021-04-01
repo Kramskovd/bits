@@ -16,11 +16,11 @@ int f(int n){
 
 		if(i%8 == 0){
 			k++;
-			up = k*8-1;
+			up = 32 - k*8;
 			down = (k-1)*8;
 		}
 		
-		m |= ((n & (1 << (down + i%8))) ? 1 : 0) << (up - i%8 );
+		m |= ((n & (1 << (down + i%8))) ? 1 : 0) << (up + i%8);
 		i++;
 
 	}
@@ -34,6 +34,8 @@ void print(int n){
 	int i;
 
 	for(i = 31; i >=0; i--){
+		if((i+1) % 8 == 0 && i != 31)
+			printf(" | ");
 		printf("%d ", n & (1 << i) ? 1 : 0);
 	}
 

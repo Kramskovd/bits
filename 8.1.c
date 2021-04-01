@@ -11,6 +11,7 @@ int main(void)
 	int n;
 
 	n = read_n();
+	print(n);
 	n = f(n);
 	
 	printf("\n");
